@@ -12,8 +12,9 @@ var romanToInt = function(s) {
     value = 0;
     for(let i = 0; i < s.length; i+=1){
         symbols[s[i]] < symbols[s[i+1]] ?
-        
+        //<
          value -= symbols[s[i]]:
+        //>
           value += symbols[s[i]]
     }
     return value
