@@ -23,3 +23,42 @@ public int kthSmallest(int[][] matrix, int k) {
     return lo;
 }
 how to aviod not valid martix number
+
+
+class Solution {
+public:
+    int kthSmallest(vector<vector<int>>& matrix, int k) 
+    {
+        int N = matrix.size();
+        int left = matrix[0][0];
+        int right = matrix[N-1][N-1];
+        while (left<right)
+        {
+            int mid = left+(right-left)/2;
+            //cout<<left<<" "<<right<<" "<<mid<<" "<<equalOrSmaller(matrix,mid)<<endl;
+            
+            if (equalOrSmaller(matrix,mid)<k)
+                left = mid+1;
+            else
+                right = mid;
+        }
+        return left;
+    }
+    
+    int equalOrSmaller(vector<vector<int>>& matrix, int x)
+    {
+        int N = matrix.size();
+        int col=N-1, r=0, count = 0;
+        while (col>=0 && r<N)
+        {
+            if (matrix[col][r]<=x)
+            {
+                count+=(col+1);
+                r++;
+            }
+            else
+                col--;                
+        }
+        return count;
+    }
+};
