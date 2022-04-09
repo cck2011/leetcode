@@ -46,10 +46,13 @@ public:
     }
     
     int equalOrSmaller(vector<vector<int>>& matrix, int x)
+    //seperate by middle and get number lower than middle
+    //start from right top corner and if <= then get all count of that row
+    //can get even if have duplicate number
     {
         int N = matrix.size();
         int col=N-1, r=0, count = 0;
-        while (col>=0 && r<N)
+        while (col>=0 && r<N)//col cannot lower than zero and r cannot higher than N
         {
             if (matrix[col][r]<=x)
             {
