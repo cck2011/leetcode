@@ -70,7 +70,7 @@ class Tuple implements Comparable<Tuple> {
     }
 }
 }
-//Comparator !ee
+//Comparator !
 
 //heap column method
 public class Solution {

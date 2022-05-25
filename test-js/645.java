@@ -1,8 +1,11 @@
 public int[] findErrorNums(int[] nums) {
     for (int i = 0; i < nums.length; i++) {
+         int n = nums.length
         //nums[i] != i + 1 ensure array number is ascending, prevent duplicate and lost number
-        //nums[nums[i] - 1] != nums[i] 
-        while (nums[i] != i + 1 && nums[nums[i] - 1] != nums[i]) {
+        //nums[i]<=n is not essential but is template of index sorting, ensure nums are not bigger than n(both start from 0)
+        //nums[nums[i] - 1] != nums[i] swap number can not be the same, or else infinite swap
+        while (nums[i] != i + 1 && nums[i]<=n && nums[nums[i] - 1] != nums[i]) {
+            //swap number to where it should be
             swap(nums, i, nums[i] - 1);
         }
     }
