@@ -24,11 +24,12 @@ public TreeNode mergeTrees(TreeNode t1, TreeNode t2) {
 
   return t1;
 }
-=======
+public TreeNode mergeTrees(TreeNode t1, TreeNode t2) {
     if (t1 == null && t2 == null) return null;//if both null
     if (t1 == null) return t2;//if one child is null
     if (t2 == null) return t1;
     TreeNode root = new TreeNode(t1.val + t2.val);//if both have children then create a new node
+    //no need to inculde root in recursion as it already merge the root
     root.left = mergeTrees(t1.left, t2.left);//go end of t1 and t2, assign to root.left
     root.right = mergeTrees(t1.right, t2.right);//assign to root.right
     return root;
@@ -43,12 +44,9 @@ return root
 root.right = mergeTrees(root)
 root.left = mergeTrees(root)
 root.left = mergeTrees(t1)
-<<<<<<< HEAD
 
-=======
 TreeNode root = new TreeNode(t1.val + t2.val);
->>>>>>> 05aec5c81068219798077575f3b50c8a207818fd
->>>>>>> ee1e628accdf47078b024c94ca50ef94c122f99c
+
 
 // Method 2: Iterative DFS
 // Time: O(n)
