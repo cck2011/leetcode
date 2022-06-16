@@ -9,9 +9,9 @@ class Solution{
 private int pathSumStartWithRoot(TreeNode root, int sum) {
     if (root == null) return 0;
     int ret = 0;
-    if (root.val == sum) ret++;//button to top, becasue already return
+    if (root.val == sum) ret++;//run from top to button and already store data
     ret += pathSumStartWithRoot(root.left, sum - root.val) + pathSumStartWithRoot(root.right, sum - root.val);//up to button
-    return ret;
+    return ret;//return from button to top
 }
 2022-06-10-11-39-46.png
 }
@@ -64,7 +64,7 @@ https://www.youtube.com/watch?v=uZzvivFkgtM
      1
     2  -1
   -1  2
-
+//not recursion in recursion, only traversal once
    class Solution {
     public int pathSum(TreeNode root, int sum) {
         // key是前缀和, value是大小为key的前缀和出现的次数
@@ -99,10 +99,12 @@ https://www.youtube.com/watch?v=uZzvivFkgtM
         res += recursionPathSum(node.right, prefixSumCount, target, currSum);
 
         // 4.回到本层，恢复状态，去除当前节点的前缀和数量
+        //get in if node.left and node.right = null, then current node path from hashmap
+        //then the node will return up one level and try to find it right node
         prefixSumCount.put(currSum, prefixSumCount.get(currSum) - 1);
         return res;
     }
-} 
+}
 t1           
      10           target = 8
    5    -3   
@@ -127,3 +129,26 @@ t1
 时间复杂度：每个节点只遍历一次,O(N).
 
 空间复杂度：开辟了一个hashMap,O(N).
+
+class Solution{
+    public int findTargetPathSum(TreeNode root, int target){
+        Map<Integer, Integer> Map = new HashMap<>();
+        Map.put(0,1);
+        return recursionPathSum(root, Map, target, 0);
+    }
+    public int recursionPathSum(TreeNode node, Map<Integer, Integer> map, int target, int curSum){
+        if (node == null) {
+            return 0;
+        }
+        int res = 0;
+        curSum += node.val;
+        res += map.getOrDefault(curSum - target, 0);
+        map.put(curSum, map.getOrDefault(curSum,0)+1);
+        res += recursionPathSum(node.left, map, target, curSum);
+        res += recursionPathSum(node.right, map, target, curSum);
+        //is other also + two function
+        //come in because have no children
+        map.put(curSum,map.get(curSum)-1);
+        return res;
+        }
+}
