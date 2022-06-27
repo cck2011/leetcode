@@ -1,7 +1,6 @@
 //time : O(n) number of nodes is n, all nodes need to be travsal
 //space : O(logn) not n because same node add together will use the same space
 public TreeNode mergeTrees(TreeNode t1, TreeNode t2) {
-<<<<<<< HEAD
     if (t1 == null && t2 == null) return null;
     if (t1 == null) return t2;
     if (t2 == null) return t1;
@@ -33,7 +32,7 @@ public TreeNode mergeTrees(TreeNode t1, TreeNode t2) {
     root.left = mergeTrees(t1.left, t2.left);//go end of t1 and t2, assign to root.left
     root.right = mergeTrees(t1.right, t2.right);//assign to root.right
     return root;
-}
+
 
  t1            t2
    2            2
@@ -46,7 +45,6 @@ root.left = mergeTrees(root)
 root.left = mergeTrees(t1)
 
 TreeNode root = new TreeNode(t1.val + t2.val);
-
 
 // Method 2: Iterative DFS
 // Time: O(n)
