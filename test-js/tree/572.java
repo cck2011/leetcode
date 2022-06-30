@@ -1,22 +1,26 @@
-public boolean isSymmetric(TreeNode root) {
-    if (root == null) return true;
-    return isSymmetric(root.left, root.right);
+public boolean isSubtree(TreeNode s, TreeNode t) {
+    if (s == null) return false;
+    return isSubtreeWithRoot(s, t) || isSubtree(s.left, t) || isSubtree(s.right, t);//run once in the root first
+    //then run is SubtreeWithRoot in all left and right node
 }
 
-private boolean isSymmetric(TreeNode t1, TreeNode t2) {
-    if (t1 == null && t2 == null) return true;
-    if (t1 == null || t2 == null) return false;//if one tree exsist and another didnt
-    if (t1.val != t2.val) return false;
-    return isSymmetric(t1.left, t2.right) && isSymmetric(t1.right, t2.left);
-               //        out                     in
-               //every layer have out in, extend every t1 and t2
+private boolean isSubtreeWithRoot(TreeNode s, TreeNode t) {
+    if (t == null && s == null) return true;//both node are null, empty is also regard as equal
+    if (t == null || s == null) return false;
+    if (t.val != s.val) return false;
+    return isSubtreeWithRoot(s.left, t.left) && isSubtreeWithRoot(s.right, t.right);
 }
 
 class Solution {
     public boolean isSubtree(TreeNode root, TreeNode subRoot) {
         return kmp(serialize(root), serialize(subRoot));
     }
-    //the use of lps is 
+    //the use of lps is to skip
+    //lps:AAX
+    //    010
+    //s:AAAAAX
+    //  122223
+    //return true becuase j=3
     boolean kmp(String s, String p) { // Check if s contains p?
         int[] lps = getLPS(p);
         int n = s.length(), m = p.length();
@@ -24,11 +28,11 @@ class Solution {
             //Return the i character of a string
             while (s.charAt(i) != p.charAt(j) && j > 0) j = lps[j-1];//eg if j fail to match in the 3 words, then it can start from the second one ,as it already know 
             if (s.charAt(i) == p.charAt(j)) j++;
-            if (j == m) return true;
+            if (j == m) return true;//if j(subroot index) = subroot length then true
         }
         return false;
     }
-    //
+    //j is prefix and j = lps[j-1] is suffix
     int[] getLPS(String p) {//Longest Prefix Suffix
         int m = p.length();
         int[] lps = new int[m];//m is the size of the array
@@ -66,14 +70,45 @@ http://jakeboxer.com/blog/2009/12/13/the-knuth-morris-pratt-algorithm-in-my-own-
         serialize(root, sb);//refer to the next serialize function
         return sb.toString();
     }
-    //method
+    //void function excute a task and do not return a function
     void serialize(TreeNode root, StringBuilder sb) {
         if (root == null) {
-            sb.append(",#");
+            sb.append(",#");//means return, but why?
         } else {
             sb.append("," + root.val);
             serialize(root.left, sb);
             serialize(root.right, sb);
         }
+    }
+    //must use preorder and postorder because inorder always start with null and end with null 
+    //which is different from preorder and postofer that is only reversed.
+//     Inorder => Left, Root, Right.
+
+// Preorder => Root, Left, Right.
+
+// Post order => Left, Right, Root.
+}
+public class Solution {
+    public boolean isSubtree(TreeNode s, TreeNode t) {
+        String s1 = convertTree(s);
+        String s2 = convertTree(t);
+        return s1.contains(s2);
+    }
+    
+    protected String convertTree(TreeNode root) {
+        if(root == null) {
+            return "";
+        }
+        String s = "" + root.val;
+        s = "[" + s.length() + "]" + s;
+        String left = convertTree(root.left);
+        String right = convertTree(root.right);
+        if(left.length() != 0) {
+            left = "l" + left;
+        }
+        if(right.length() != 0) {
+            right = "r" + right;
+        }
+        return s + "(" + left + right + ")";
     }
 }
