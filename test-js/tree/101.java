@@ -1,3 +1,4 @@
+//wrong
 class Solution {
     public boolean isSymmetric(TreeNode root) {
         Stack<TreeNode> lstack = new Stack<>();
@@ -24,3 +25,78 @@ class Solution {
         return lstack.size() == rstack.size();
     }
 }
+
+public boolean isSymmetric(TreeNode root) {
+    if(root==null)  return true;
+    
+    Stack<TreeNode> stack = new Stack<TreeNode>();
+    TreeNode left, right;
+    if(root.left!=null){
+        if(root.right==null) return false;
+        stack.push(root.left);
+        stack.push(root.right);
+    }
+    else if(root.right!=null){//only right have
+        return false;
+    }
+        
+    while(!stack.empty()){
+        if(stack.size()%2!=0)   return false;//if not 2* then false
+        right = stack.pop();
+        left = stack.pop();
+        if(right.val!=left.val) return false;
+        
+        if(left.left!=null){//left have
+            if(right.right==null)   return false;//right have no
+            stack.push(left.left);
+            stack.push(right.right);
+        }
+        else if(right.right!=null){//right have, left have no
+            return false;
+        }
+            
+        if(left.right!=null){
+            if(right.left==null)   return false;
+            stack.push(left.right);
+            stack.push(right.left);
+        }
+        else if(right.left!=null){
+            return false;
+        }
+    }
+    
+    return true;
+}
+//wrong
+class Solution {
+public boolean isSymmetric(TreeNode root) {
+    return root==null || isSymmetricHelp(root.left, root.right);
+}
+
+private boolean isSymmetricHelp(TreeNode left, TreeNode right){
+    // if(left==null || right==null)
+    //     return left==right;
+    // if(left!==null){
+    //     if(right ==null)return false;
+    //     return true;
+    // }
+    // elseif(left == null){
+    //     if(right ==null)return true;
+    //     return false;
+    // }
+    if(left!=null){
+        if(right==null) return false;
+        return true;
+    }
+    else if(right!=null){
+        return false;
+    }else if(right ==left){
+        return true;
+    }
+    if(left.val!=right.val) return false;
+    return isSymmetricHelp(left.left, right.right) && isSymmetricHelp(left.right, right.left);
+}
+}
+left      Right
+null      not null
+not null  null
