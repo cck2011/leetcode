@@ -5,6 +5,6 @@ Class Solution{
         right = shortestDepth(root.right);
 
         if(left == null || right == null)return left+right+1;
-        return Math.min(left,right)+1;
+        return Math.min(left,right)+1;//if have both side node then Math.min to get shortest path
     }
 }
