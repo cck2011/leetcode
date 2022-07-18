@@ -1,17 +1,17 @@
 public int findSecondMinimumValue(TreeNode root) {
     if (root == null) return -1;
-    if (root.left == null && root.right == null) return -1;
-
+    if (root.left == null && root.right == null) return -1;//already handle both -1 because this situation will only happen when there are only two level of tree(root and children)
+// the children of root must be smaller than children
     int leftVal = root.left.val;
     int rightVal = root.right.val;
-
+//if equal then go in to see if there are bigger number
     if (root.val == leftVal) leftVal = findSecondMinimumValue(root.left);
     if (root.val == rightVal) rightVal = findSecondMinimumValue(root.right);
 
     if (leftVal != -1 && rightVal != -1) return Math.min(leftVal, rightVal);
     if (leftVal != -1) return leftVal;
     return rightVal;
-}
+}//where do it handle both -1?
 
         1
    2(3)    2
@@ -21,11 +21,11 @@ public int findSecondMinimumValue(TreeNode root) {
   / \
  2   5
    / \
-    5  7
-
+   5  7
+//easier to understand
     class Solution {
     public int findSecondMinimumValue(TreeNode root) {
-        if(root == null || root.left == null) return -1;
+        if(root == null || root.left == null) return -1;//hadnle have no root and that root have no children(question said that if have children that must have two children)
         
     //the downer of tree the smaller of nodes 
 
@@ -41,7 +41,7 @@ public int findSecondMinimumValue(TreeNode root) {
             rightRes = root.right.val;
         }
         
-        if (leftRes == -1 && rightRes == -1) return -1;
+        if (leftRes == -1 && rightRes == -1) return -1;//only one number
         else if (leftRes == -1) return rightRes;
         else if (rightRes == -1) return leftRes;
         else return Math.min(leftRes, rightRes);

@@ -12,7 +12,7 @@ public int rob(TreeNode root) {
     return res;
 }
 // can be like this, but repeat caluate root.left and root.right
-class Solution:
+class Solution
     def rob(self, root: TreeNode) -> int:
         if not root:
             return 0
