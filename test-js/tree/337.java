@@ -2,15 +2,15 @@ Map<TreeNode, Integer> cache = new HashMap<>();
 
 public int rob(TreeNode root) {
     if (root == null) return 0;
-    if (cache.containsKey(root)) return cache.get(root);
+    if (cache.containsKey(root)) return cache.get(root);//prevent caluating root.left and root.right
     int in_root = root.val;
     if (root.left != null) in_root += rob(root.left.left) + rob(root.left.right);
     if (root.right != null) in_root += rob(root.right.left) + rob(root.right.right);
     int without_root = rob(root.left) + rob(root.right);
-    int res = Math.max(in_root, without_root);//get bigger of sum of with root and without root, because answer can be not in one level(eg. left path is with root and right path is without root.)
+    int res = Math.max(in_root, without_root);//get bigger of sum of with root and without root, because answer can be not in one level of tree(eg. left path is with root and right path is without root.)
     cache.put(root, res);
     return res;
-}
+}//caluate all node in_root and without_root and get and bigger of both, then go up one level and do it again
 // can be like this, but repeat caluate root.left and root.right
 class Solution
     def rob(self, root: TreeNode) -> int:
