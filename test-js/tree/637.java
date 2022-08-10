@@ -36,7 +36,7 @@
     }
     public void helper(TreeNode root, List<Node> temp, int level) {
         if (root == null) return;
-        if (level == temp.size()) {//next level, one level one node, wt is temp size?
+        if (level == temp.size()) {// one level one node, level 0 temp size 0 so temp size 1, level 1 temp size 1 so temp size 2. Therefore, temp size is always one step ahead to wait level to wait level.
             Node node = new Node((double)root.val, 1);//add one node to list
             temp.add(node);
         } else {//in same level
