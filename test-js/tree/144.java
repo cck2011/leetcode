@@ -16,12 +16,12 @@ class Solution{
     public List<Integer> list = new ArrayList();
     Stack<TreeNode> stack = new Stack();
     while(!stack.isEmpty() || root != null){
-    while(root != null){
+    while(root != null){//if null not eq to null then push to the end of left
         list.add(root.val);
-        stack.push(root);
+        stack.push(root);//end of left
         root = root.left;
     }
-    root = stack.pop();
+    root = stack.pop();//if root is null then go up one level and go right
     root = root.right;
     }
     return list;

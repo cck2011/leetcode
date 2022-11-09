@@ -27,6 +27,20 @@ class Solution {
 }
 //recursion
 public boolean isSymmetric(TreeNode root) {
+    if (root == null) return true;
+    return isSymmetric(root.left, root.right);
+}
+
+private boolean isSymmetric(TreeNode t1, TreeNode t2) {
+    if (t1 == null && t2 == null) return true;
+    if (t1 == null || t2 == null) return false;
+    if (t1.val != t2.val) return false;
+    return isSymmetric(t1.left, t2.right) && isSymmetric(t1.right, t2.left);
+}
+//see it as two different tree and one travsal from left to right, one travsal from right to left and compare it
+//https://leetcode.cn/problems/symmetric-tree/solution/dong-hua-yan-shi-101-dui-cheng-er-cha-shu-by-user7/
+//recursion
+public boolean isSymmetric(TreeNode root) {
     return root==null || isSymmetricHelp(root.left, root.right);
 }
 
@@ -63,23 +77,13 @@ public boolean isSymmetric(TreeNode root) {
         if(right ==null || left == null)return false;
         if(right.val!=left.val) return false;//cannot get value if is null
         //filter except both are null
-       // if(left.left!=null){//left have
-        //    if(right.right==null)   return false;//right have no
             stack.push(left.left);//both have
             stack.push(right.right);
-      //  }
-       // else if(right.right!=null){//right have, left have null
-       //     return false;
-       // }
-            
-     //   if(left.right!=null){
-       //     if(right.left==null)   return false;
+      
             stack.push(left.right);
             stack.push(right.left);
-      //  }
-        //else if(right.left!=null){
-       //     return false;
-        }
+     
+    }
     
     
     return true;

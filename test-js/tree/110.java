@@ -1,21 +1,22 @@
 //recursion DFS O(N)
 class solution {
-private boolean result = true;
+    private boolean result = true;
 
-public boolean isBalanced(TreeNode root) {
-    maxDepth(root);
-    return result;
+    public boolean isBalanced(TreeNode root) {
+        maxDepth(root);
+        return result;
+    }
+
+    public int maxDepth(TreeNode root) {
+        if (root == null) return 0;
+        int l = maxDepth(root.left);//l and r = length of current node
+        int r = maxDepth(root.right);
+        if (Math.abs(l - r) > 1) return result = false;//math.abs must return postitive number
+        return 1 + Math.max(l, r);//from buttom to top and run the previous line code in each node it travsal,
+        //which is to check the child length and reduce it to check balance
+    }
 }
 
-public int maxDepth(TreeNode root) {
-    if (root == null) return 0;
-    int l = maxDepth(root.left);//l and r = length of current node
-    int r = maxDepth(root.right);
-    if (Math.abs(l - r) > 1) return result = false;//math.abs must return postitive number
-    return 1 + Math.max(l, r);//from buttom to top and run the previous line code in each node it travsal,
-    //which is to check the child length and reduce it to check balance
-}
-}
 // same as the above one
 class solution {
 public:

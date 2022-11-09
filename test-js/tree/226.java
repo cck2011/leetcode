@@ -1,6 +1,7 @@
 
 //recursive DFS 
 //may crush application because of not scalable
+//invert all node
 public TreeNode invertTree(TreeNode root) {
     if (root == null) return null;
     TreeNode left = root.left;  // 后面的操作会改变 left 指针，因此先保存下来
