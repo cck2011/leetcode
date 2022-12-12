@@ -49,3 +49,23 @@ private boolean isLeaf(TreeNode node){
     return node.left == null && node.right == null;
 }
 }
+
+//the above solution is wrong becasue the varible is define in wrong position
+//
+
+//correct solution
+class Solution {
+public int sumOfLeftLeaves(TreeNode root) {
+    if(root == null) return 0;
+    int ans = 0;
+    if(root.left != null) {
+        
+        if(root.left.left == null && root.left.right == null) ans += root.left.val;
+        
+    }
+    ans +=sumOfLeftLeaves(root.left) + sumOfLeftLeaves(root.right);
+    
+    return ans;
+}
+}
+//but why

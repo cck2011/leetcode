@@ -1,3 +1,7 @@
+//I want to find the min number that is bigger than the smallest number
+//need to know about the condition before thinking the recursion
+//if children are the same with root then may have bigger value
+//if children are both not equal then must be two bigger value,then should get the min of them
 public int findSecondMinimumValue(TreeNode root) {
     if (root == null) return -1;
     if (root.left == null && root.right == null) return -1;//already handle both -1 because this situation will only happen when there are only two level of tree(root and children)
@@ -7,8 +11,9 @@ public int findSecondMinimumValue(TreeNode root) {
 //if equal then go in to see if there are bigger number
     if (root.val == leftVal) leftVal = findSecondMinimumValue(root.left);
     if (root.val == rightVal) rightVal = findSecondMinimumValue(root.right);
-
-    if (leftVal != -1 && rightVal != -1) return Math.min(leftVal, rightVal);
+    //do it when return after traversal
+    //when there is not equal
+    if (leftVal != -1 && rightVal != -1) return Math.min(leftVal, rightVal);//why wont it always return the smallest
     if (leftVal != -1) return leftVal;
     return rightVal;
 }//where do it handle both -1?
@@ -19,9 +24,17 @@ public int findSecondMinimumValue(TreeNode root) {
 
    2
   / \
- 2   5
+ 2   2
    / \
-   5  7
+   2  7
+   /\
+   2 3
+
+   2
+  / \
+ 2   5
+    / \
+    5  7
 //easier to understand
     class Solution {
     public int findSecondMinimumValue(TreeNode root) {
