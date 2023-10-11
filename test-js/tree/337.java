@@ -5,7 +5,7 @@
 //(O)n time and space complexity for the  optimize method(map)
 Map<TreeNode, Integer> cache = new HashMap<>(); 
 
-public int rob(TreeNode root) {
+public int rob(TreeNode root) {//eventually if you get the node you cannot get the next node
     if (root == null) return 0;
     if (cache.containsKey(root)) return cache.get(root);//prevent caluating root.left and root.right
     int in_root = root.val;

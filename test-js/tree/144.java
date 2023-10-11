@@ -26,3 +26,16 @@ class Solution{
     }
     return list;
 }
+
+public List<Integer> preorderTraversal(TreeNode root) {
+    List<Integer> ret = new ArrayList<>();
+    Stack<TreeNode> stack = new Stack<>();
+    stack.push(root);
+    while (root!=null && !stack.isEmpty()) {
+        TreeNode node = stack.pop();
+        ret.add(node.val);
+        if(node.right != null)stack.push(node.right);  // 先右后左，保证左子树先遍历
+        if(node.left != null)stack.push(node.left);
+    }
+    return ret;
+}

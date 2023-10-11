@@ -14,6 +14,31 @@ private int dfs(TreeNode root){
     path = Math.max(path, leftPath + rightPath);
     return Math.max(leftPath, rightPath);
 }
+private int path = 0;
+
+public int longestUnivaluePath(TreeNode root) {
+    dfs(root);
+    return path;
+}
+
+private int dfs(TreeNode root){
+    int leftPath = 0;
+    int rightPath = 0;
+    if (root == null) return 0;
+    int left = dfs(root.left);
+    int right = dfs(root.right);
+    if(root.left != null){
+        leftPath =  root.left.val == root.val ? left + 1 : 0;
+    }
+    if(root.right != null){
+        rightPath =  root.right.val == root.val ? right + 1 : 0;
+    }
+     
+    path = Math.max(path, leftPath + rightPath);//get both path max
+    return Math.max(leftPath, rightPath);//get single path max, only can return both path
+}
+
+
 
 class Solution {
     int ans;
@@ -46,7 +71,4 @@ class Solution {
 //it is not one path if return ans
 }
 
-作者：Chuancey
 链接：https://leetcode.cn/problems/longest-univalue-path/solution/guan-yu-di-gui-si-lu-de-chao-xiang-xi-ge-ren-jian-/
-来源：力扣（LeetCode）
-著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
