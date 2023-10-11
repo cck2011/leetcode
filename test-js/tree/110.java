@@ -11,11 +11,82 @@ class solution {
         if (root == null) return 0;
         int l = maxDepth(root.left);//l and r = length of current node
         int r = maxDepth(root.right);
-        if (Math.abs(l - r) > 1) return result = false;//math.abs must return postitive number
+        if (Math.abs(l - r) > 1) result = false;//math.abs must return postitive number
         return 1 + Math.max(l, r);//from buttom to top and run the previous line code in each node it travsal,
         //which is to check the child length and reduce it to check balance
     }
 }
+// public class Solution {
+// private boolean result = true;
+
+// public boolean isBalanced(TreeNode root) {
+//     maxDepth(root);
+//     return result;
+// }
+
+// public int maxDepth(TreeNode root) {
+//     // Add below line to come out of recursion quickly as soon as imbalance is found 
+//     if (!result) return 0;
+//     if (root == null)
+//         return 0;
+//     int l = maxDepth(root.left);
+//     int r = maxDepth(root.right);
+//     if (Math.abs(l - r) > 1)
+//         result = false;
+//     return 1 + Math.max(l, r);
+// }
+// }
+// FYI for all you suggesting to return once result is set to false to make this more efficient, know that this is post-order (bottom-up) traversal, meaning by the time you're figuring out if two subtrees are balanced, you're on your way back from the recursion stack, not going further into it. There is nothing you can do to speed up this implementation once the result boolean is falsified.
+
+class solution {
+public:
+    int depth (TreeNode *root) {
+        if (root == NULL) return 0;
+        return max (depth(root -> left), depth (root -> right)) + 1;
+    }
+
+    bool isBalanced (TreeNode *root) {
+        if (root == NULL) return true;
+        
+        int left=depth(root->left);
+        int right=depth(root->right);
+        
+        return abs(left - right) <= 1 && isBalanced(root->left) && isBalanced(root->right);
+    }
+};
+
+// i rewrite it after watching question 543 dfs
+public class Solution{
+    public boolean isBalanced(TreeNode root){
+        if(root == null){
+            return true;
+        }
+
+        Stack<TreeNode> nodeStack = new Stack<>();
+        Map<TreeNode,Integer> record = new HashMap<TreeNode, Integer>();
+        nodeStack.push(root);
+        while(!nodeStack.isEmpty()){
+            
+            TreeNode node = nodeStack.peek();//peek top of stack, not deleting the node
+            if(node.left != null && !record.containsKey(node.left)){//have left, not record
+                nodeStack.push(node.left);
+            }
+            else if(node.right != null && !record.containsKey(node.right)){
+                nodeStack.push(node.right);
+            }else{
+                TreeNode topNode = nodeStack.pop();
+                int left = record.getOrDefault(topNode.left,0);// get the value mapped with specified key. If no value is mapped with the provided key then the default value is returned.
+                int right = record.getOrDefault(topNode.right,0);
+                //if is buttom then 0, if not then should have node.left record
+                if(Math.abs(left-right) > 1) return false;
+                record.put(topNode,Math.max(left, right)+1);
+            }
+        }
+        return true;
+
+    }
+}
+
 
 // same as the above one
 class solution {
@@ -115,34 +186,3 @@ public class Solution {
     };
     
 };
-// i rewrite it after watching question 543
-public class Solution{
-    public boolean isBalanced(TreeNode root){
-        if(root == null){
-            return true;
-        }
-
-        Stack<TreeNode> nodeStack = new Stack<>();
-        Map<TreeNode,Integer> record = new HashMap<TreeNode, Integer>();
-        nodeStack.push(root);
-        while(!nodeStack.isEmpty()){
-            
-            TreeNode node = nodeStack.peek();
-            if(node.left != null && !record.containsKey(node.left)){
-                nodeStack.push(node.left);
-            }
-            else if(node.right != null && !record.containsKey(node.right)){
-                nodeStack.push(node.right);
-            }else{
-                TreeNode topNode = nodeStack.pop();
-                int left = record.getOrDefault(root.left,0);
-                int right = record.getOrDefault(root.right,0);
-                //if is buttom then 0, if not then should have node.left record
-                if(Math.abs(left-right) > 1) return false;
-                record.put(node,Math.max(left, right)+1);
-            }
-        }
-        return true;
-
-    }
-}

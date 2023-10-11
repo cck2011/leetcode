@@ -114,3 +114,43 @@ public TreeNode mergeTrees(TreeNode t1, TreeNode t2) {
   }
   return t1;
 }
+
+class Solution {
+    public TreeNode mergeTrees(TreeNode t1, TreeNode t2) 
+    {
+        Stack <TreeNode> s = new Stack <TreeNode>();
+        s.push(t1);
+        s.push(t2);
+        if (t1 == null)
+            return t2;
+ 
+        while(!s.isEmpty())
+        {
+            TreeNode two = s.pop();
+            TreeNode one = s.pop();
+            
+            if (one != null && two != null)
+            {
+                one.val += two.val;
+                if (one.left == null){//if left is null, if two.left is null, then the remaining tree of one do not need to change.
+                    one.left = two.left;
+                }
+                else
+                {
+                    s.push(one.left);
+                    s.push(two.left);
+                }
+                      
+                if (one.right == null){
+                    one.right = two.right;
+                }
+                else
+                {
+                    s.push(one.right);
+                    s.push(two.right);
+                }  
+            }     
+        }
+        return t1;  
+    }
+}

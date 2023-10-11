@@ -1,3 +1,8 @@
+//in this question what i only need to know is what is the end condition of recursion and wt the recurstion need to process
+//the recursion need to process: compare in_root and without_root to return the bigger
+// and add two node if the node have two children
+//adding node value in in_root
+//(O)n time and space complexity for the  optimize method(map)
 Map<TreeNode, Integer> cache = new HashMap<>(); 
 
 public int rob(TreeNode root) {

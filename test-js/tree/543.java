@@ -1,4 +1,4 @@
-public class Solution{
+public class Solution{//two function becuase need to return max;
     private int max = 0;
 
     public int diameterOfBinaryTree(TreeNode root) {
@@ -76,3 +76,33 @@ public int diameterOfBinaryTree(TreeNode root) {
         
     } 
 }
+
+ */
+class Solution {
+    public int max = 0;
+    public int diameterOfBinaryTree(TreeNode root) {
+        if(root == null)return 0;
+        Stack<TreeNode> stack = new Stack<>();
+        Map<TreeNode, Integer> map =  new HashMap<TreeNode, Integer>();
+
+        stack.push(root);
+        while(!stack.isEmpty()){
+            TreeNode node = stack.peek();
+            if(node.left != null && !map.containsKey(node.left)){//not containKeys
+                stack.push(node.left);
+            }else if(node.right != null && !map.containsKey(node.right)){
+                stack.push(node.right);
+            }else{
+                TreeNode popNode = stack.pop();
+                int left = map.getOrDefault(popNode.left,0);
+                int right = map.getOrDefault(popNode.right,0);
+
+                max = Math.max(max, left+right);
+                map.put(popNode,Math.max(left,right)+1);
+            }
+        }
+        return max;//remember to return
+    }
+}110
+Time complexity: O(N) - since every node in the tree is visited
+Space complexity: O(N) - space required for the HashMap and Stack

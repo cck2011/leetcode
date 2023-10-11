@@ -10,6 +10,7 @@ public int maxDepth(TreeNode root) {
 //DFS use stack becasue last in first out can track the current node
 //time complexity O(|V|), you need to traverse all nodes.
 //Space complexity - a recursive implementation can have a O(h) space complexity [worst case], where h is the maximal depth of your tree.
+//dfs include inorder preorder and postorder
 public int maxDepth(TreeNode root) {
     if(root == null) {
         return 0;
@@ -26,7 +27,7 @@ public int maxDepth(TreeNode root) {
         max = Math.max(temp, max);//?y not just +1
         if(node.left != null) {
             stack.push(node.left);
-            value.push(temp+1);
+            value.push(temp+1);//same number if in same level
         }
         if(node.right != null) {
             stack.push(node.right);//push left and right at the same time if have two children
@@ -35,6 +36,9 @@ public int maxDepth(TreeNode root) {
     }
     return max;
 }
+    1
+  2   3  //both temp = 2
+//https://www.youtube.com/watch?v=hTM3phVI6YQ
 
 //BFS Breadth-first Search
 //BFS use queue becasue first in first out, good for poping upper layer
@@ -49,7 +53,7 @@ public int maxDepth(TreeNode root) {
     int count = 0;
     while(!queue.isEmpty()) {//fixed queue size, but need resize in the loop, so add a inner for loop
         int size = queue.size();//queue size is fixed in inner loop, so need to check size every loop
-        while(size-- > 0) {
+        while(size-- > 0) {//loop all in the same level
             TreeNode node = queue.poll();
             if(node.left != null) {
                 queue.offer(node.left);
